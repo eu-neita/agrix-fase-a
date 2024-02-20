@@ -22,6 +22,7 @@ public class Farm {
 
   public Farm() {
   }
+
   /**
    * Constructs a new Farm instance.
    */
