@@ -7,6 +7,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * Entity class representing a farm.
+ * This class is used to model farm data in the application.
+ */
 @Entity
 @Table(name = "farm")
 public class Farm {
@@ -16,6 +20,9 @@ public class Farm {
   private String name;
   private int size;
 
+  /**
+   * Constructs a new Farm instance.
+   */
   public Farm(Long id, String name, int size) {
     this.id = id;
     this.name = name;

@@ -4,6 +4,9 @@ import com.betrybe.agrix.models.entities.Farm;
 import com.betrybe.agrix.models.repositories.FarmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * Service class for managing Farm entities.
+ */
 public class FarmService {
   private FarmRepository farmRepository;
 

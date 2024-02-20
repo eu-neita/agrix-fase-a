@@ -1,7 +1,7 @@
 package com.betrybe.agrix.controllers;
 
 import com.betrybe.agrix.controllers.dto.FarmDto;
-import com.betrybe.agrix.controllers.dto.ResponseDTO;
+import com.betrybe.agrix.controllers.dto.ResponseDto;
 import com.betrybe.agrix.models.entities.Farm;
 import com.betrybe.agrix.services.FarmService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Controller class for managing Farm entities.
+ */
 @RestController
 @RequestMapping(value = "/farms")
 public class FarmController {
@@ -26,11 +29,14 @@ public class FarmController {
     this.farmService = farmService;
   }
 
+  /**
+   * Handles HTTP POST requests to create a new farm.
+   */
   @PostMapping()
-  public ResponseEntity<ResponseDTO<Farm>> createBook(@RequestBody FarmDto farmDTO) {
-    Farm newFarm = farmService.insertFarm(farmDTO.toFarm());
-    ResponseDTO<Farm> responseDTO = new ResponseDTO<>("Livro criado com sucesso!", newFarm);
-    return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
+  public ResponseEntity<ResponseDto<Farm>> createBook(@RequestBody FarmDto farmDto) {
+    Farm newFarm = farmService.insertFarm(farmDto.toFarm());
+    ResponseDto<Farm> responseDto = new ResponseDto<>(newFarm);
+    return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
   }
 
 }
