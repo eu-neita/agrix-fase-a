@@ -20,10 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class FarmController {
   private final FarmService farmService;
 
-  public FarmService getFarmService() {
-    return farmService;
-  }
-
   @Autowired
   public FarmController(FarmService farmService) {
     this.farmService = farmService;
@@ -33,10 +29,9 @@ public class FarmController {
    * Handles HTTP POST requests to create a new farm.
    */
   @PostMapping
-  public ResponseEntity<ResponseDto<Farm>> createBook(@RequestBody FarmDto farmDto) {
+  public ResponseEntity<Farm> createFarm(@RequestBody FarmDto farmDto) {
     Farm newFarm = farmService.insertFarm(farmDto.toFarm());
-    ResponseDto<Farm> responseDto = new ResponseDto<>(newFarm);
-    return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
+    return ResponseEntity.status(HttpStatus.CREATED).body(newFarm);
   }
 
 }

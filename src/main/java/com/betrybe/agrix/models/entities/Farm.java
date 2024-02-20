@@ -18,12 +18,12 @@ public class Farm {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
   private String name;
-  private int size;
+  private double size;
 
   /**
    * Constructs a new Farm instance.
    */
-  public Farm(Long id, String name, int size) {
+  public Farm(Long id, String name, double size) {
     this.id = id;
     this.name = name;
     this.size = size;
@@ -45,13 +45,12 @@ public class Farm {
     this.name = name;
   }
 
-  public int getSize() {
+  public double getSize() {
     return size;
   }
 
-  public void setSize(int size) {
+  public void setSize(double size) {
     this.size = size;
   }
-
 
 }
