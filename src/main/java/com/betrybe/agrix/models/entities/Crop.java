@@ -1,38 +1,39 @@
 package com.betrybe.agrix.models.entities;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 /**
  * Entity class representing a farm.
  * This class is used to model farm data in the application.
  */
 @Entity
-@Table(name = "farm")
-public class Farm {
+public class Crop {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
   private String name;
-  private double size;
+  private double plantedArea;
 
-  public Farm() {
+  @ManyToOne
+  @JoinColumn(name = "farm_id", nullable = false)
+  private Farm farm;
+
+  public Crop() {
   }
 
   /**
    * Constructs a new Farm instance.
    */
-  public Farm(Long id, String name, double size) {
+  public Crop(Long id, String name, double plantedArea, Farm farm) {
     this.id = id;
     this.name = name;
-    this.size = size;
-  }
-
-  public Farm(Long id, String name, double platedArea, Long farmId) {
+    this.plantedArea = plantedArea;
+    this.farm = farm;
   }
 
   public Long getId() {
@@ -51,12 +52,19 @@ public class Farm {
     this.name = name;
   }
 
-  public double getSize() {
-    return size;
+  public double getPlantedArea() {
+    return plantedArea;
   }
 
-  public void setSize(double size) {
-    this.size = size;
+  public void setPlantedArea(double plantedArea) {
+    this.plantedArea = plantedArea;
   }
 
+  public Farm getFarm() {
+    return farm;
+  }
+
+  public void setFarm(Farm farm) {
+    this.farm = farm;
+  }
 }
