@@ -16,6 +16,12 @@ public class Farm {
   private String name;
   private int size;
 
+  public Farm(Long id, String name, int size) {
+    this.id = id;
+    this.name = name;
+    this.size = size;
+  }
+
   public Long getId() {
     return id;
   }
