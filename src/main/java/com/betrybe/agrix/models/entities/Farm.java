@@ -20,6 +20,8 @@ public class Farm {
   private String name;
   private double size;
 
+  public Farm() {
+  }
   /**
    * Constructs a new Farm instance.
    */
