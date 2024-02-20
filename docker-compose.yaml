@@ -3,7 +3,9 @@ services:
   mysql:
     image: mysql:8.0.32
     restart: always
+    container_name: agrix-container
     ports:
       - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: agrixdb

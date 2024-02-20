@@ -32,7 +32,7 @@ public class FarmController {
   /**
    * Handles HTTP POST requests to create a new farm.
    */
-  @PostMapping()
+  @PostMapping
   public ResponseEntity<ResponseDto<Farm>> createBook(@RequestBody FarmDto farmDto) {
     Farm newFarm = farmService.insertFarm(farmDto.toFarm());
     ResponseDto<Farm> responseDto = new ResponseDto<>(newFarm);
