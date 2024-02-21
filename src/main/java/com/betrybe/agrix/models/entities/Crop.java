@@ -36,6 +36,9 @@ public class Crop {
     this.farm = farm;
   }
 
+  public Crop(long id, String name, Double plantedArea) {
+  }
+
   public Long getId() {
     return id;
   }

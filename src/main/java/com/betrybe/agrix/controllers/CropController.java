@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Controller class for managing Crop entities.
  */
 @RestController
-@RequestMapping("/farms")
+@RequestMapping
 public class CropController {
   private final CropService cropService;
 
@@ -34,7 +34,7 @@ public class CropController {
   /**
    * Handles HTTP POST requests to create a new crop.
    */
-  @PostMapping("{farmId}/crops")
+  @PostMapping("/farms/{farmId}/crops")
   public ResponseEntity<?> newCrop(@PathVariable Long farmId, @RequestBody Crop newCrop) {
     Optional<Crop> cropOptional = cropService.createCrop(farmId, newCrop);
     if (cropOptional.isEmpty()) {
@@ -53,7 +53,7 @@ public class CropController {
   /**
    * Handles HTTP GET requests to all crops same farmId.
    */
-  @GetMapping("/{farmId}/crops")
+  @GetMapping("/farms/{farmId}/crops")
   public ResponseEntity<?> getCropsByFarmId(@PathVariable Long farmId) {
     Optional<List<Crop>> cropsOptional = cropService.getCropsByFarmId(farmId);
     if (cropsOptional.isEmpty()) {
@@ -66,6 +66,22 @@ public class CropController {
         .collect(Collectors.toList());
 
     return ResponseEntity.ok(cropD);
+  }
+
+  /**
+   * Handles HTTP GET requests to all crops.
+   */
+  @GetMapping("/crops")
+  public ResponseEntity<List<CropDto>> getAllCrops() {
+    List<Crop> crops = cropService.getAllCrops();
+    List<CropDto> cropDtos = crops.stream()
+        .map(crop -> new CropDto(
+            crop.getId(),
+            crop.getName(),
+            crop.getPlantedArea(),
+            crop.getFarm().getId()))
+        .collect(Collectors.toList());
+    return ResponseEntity.ok(cropDtos);
   }
 
 }

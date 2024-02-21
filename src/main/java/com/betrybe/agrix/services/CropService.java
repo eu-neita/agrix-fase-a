@@ -43,4 +43,11 @@ public class CropService {
     }
     return cropConsult;
   }
+
+  /**
+   * getAllCrops method.
+   */
+  public List<Crop> getAllCrops() {
+    return cropRepository.findAll();
+  }
 }
