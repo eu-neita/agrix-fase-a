@@ -1,8 +1,11 @@
 package com.betrybe.agrix.models.repositories;
 
 import com.betrybe.agrix.models.entities.Crop;
+import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
 
 /**
  * Repository interface for managing Crop entities.
@@ -11,4 +14,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CropRepository extends JpaRepository<Crop, Long> {
+  Optional<List<Crop>> findAllByFarmId(Long farmId);
 }

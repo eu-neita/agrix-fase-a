@@ -4,7 +4,9 @@ import com.betrybe.agrix.controllers.dto.CropDto;
 import com.betrybe.agrix.controllers.dto.ResponseDto;
 import com.betrybe.agrix.models.entities.Crop;
 import com.betrybe.agrix.services.CropService;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Controller class for managing Crop entities.
  */
 @RestController
-@RequestMapping("/farms/{farmId}/crops")
+@RequestMapping("/farms")
 public class CropController {
   private final CropService cropService;
 
@@ -32,7 +34,7 @@ public class CropController {
   /**
    * Handles HTTP POST requests to create a new crop.
    */
-  @PostMapping
+  @PostMapping("{farmId}/crops")
   public ResponseEntity<?> newCrop(@PathVariable Long farmId, @RequestBody Crop newCrop) {
     Optional<Crop> cropOptional = cropService.createCrop(farmId, newCrop);
     if (cropOptional.isEmpty()) {
@@ -46,6 +48,24 @@ public class CropController {
         cropOptional.get().getPlantedArea(),
         farmId);
     return ResponseEntity.status(HttpStatus.CREATED).body(cropDto);
+  }
+
+  /**
+   * Handles HTTP GET requests to all crops same farmId.
+   */
+  @GetMapping("/{farmId}/crops")
+  public ResponseEntity<?> getCropsByFarmId(@PathVariable Long farmId) {
+    Optional<List<Crop>> cropsOptional = cropService.getCropsByFarmId(farmId);
+    if (cropsOptional.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+          .body("Fazenda não encontrada!");
+    }
+
+    List<CropDto> cropD = cropsOptional.get().stream()
+        .map(crop -> new CropDto(crop.getId(), crop.getName(), crop.getPlantedArea(), farmId))
+        .collect(Collectors.toList());
+
+    return ResponseEntity.ok(cropD);
   }
 
 }

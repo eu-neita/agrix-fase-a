@@ -1,9 +1,9 @@
 package com.betrybe.agrix.services;
 
 import com.betrybe.agrix.models.entities.Crop;
-import com.betrybe.agrix.models.entities.Farm;
 import com.betrybe.agrix.models.repositories.CropRepository;
 import com.betrybe.agrix.models.repositories.FarmRepository;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,5 +30,17 @@ public class CropService {
       crop.setFarm(farm);
       return cropRepository.save(crop);
     });
+  }
+
+  /**
+   * getCropsByFarmId method.
+   */
+  public Optional<List<Crop>> getCropsByFarmId(Long farmId) {
+    Optional<List<Crop>> cropConsult = cropRepository.findAllByFarmId(farmId);
+    List<Crop> crops = cropConsult.get();
+    if (crops.isEmpty() && !farmRepository.existsById(farmId)) {
+      return Optional.empty();
+    }
+    return cropConsult;
   }
 }
