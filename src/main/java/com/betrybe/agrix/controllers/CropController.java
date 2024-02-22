@@ -84,4 +84,22 @@ public class CropController {
     return ResponseEntity.ok(cropDtos);
   }
 
+  /**
+   * Handles HTTP GET requests to crops by id.
+   */
+  @GetMapping("/crops/{id}")
+  public ResponseEntity<?> getCropById(@PathVariable Long id) {
+    Optional<Crop> crops = cropService.getCropById(id);
+    if (crops.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+          .body("Plantação não encontrada!");
+    }
+    CropDto cropDtos = new CropDto(
+        crops.get().getId(),
+        crops.get().getName(),
+        crops.get().getPlantedArea(),
+        crops.get().getFarm().getId());
+    return ResponseEntity.ok(cropDtos);
+  }
+
 }

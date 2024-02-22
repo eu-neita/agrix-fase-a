@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * Service class for managing Service entities.
@@ -49,5 +50,12 @@ public class CropService {
    */
   public List<Crop> getAllCrops() {
     return cropRepository.findAll();
+  }
+
+  /**
+   * getCropById method.
+   */
+  public Optional<Crop> getCropById(@PathVariable Long id) {
+    return cropRepository.findById(id);
   }
 }
